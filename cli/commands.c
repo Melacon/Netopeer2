@@ -45,7 +45,7 @@
 #include "configuration.h"
 #include "completion.h"
 
-#define CLI_CH_TIMEOUT 60 /* 1 minute */
+#define CLI_CH_TIMEOUT 300 /* 1 minute */
 
 #define NC_CAP_WRITABLERUNNING_ID "urn:ietf:params:netconf:capability:writable-running"
 #define NC_CAP_CANDIDATE_ID       "urn:ietf:params:netconf:capability:candidate"
@@ -307,7 +307,7 @@ cli_send_recv(struct nc_rpc *rpc, FILE *output, NC_WD_MODE wd_mode)
     }
 
 recv_reply:
-    msgtype = nc_recv_reply(session, rpc, msgid, 20000,
+    msgtype = nc_recv_reply(session, rpc, msgid, 60000,
                             LYD_OPT_DESTRUCT | LYD_OPT_NOSIBLINGS, &reply);
     if (msgtype == NC_MSG_ERROR) {
         ERROR(__func__, "Failed to receive a reply.");
